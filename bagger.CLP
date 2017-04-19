@@ -149,9 +149,7 @@ then (assert (item (name pepsi) (container-type bottle) (size large)))))
 ?item-fact <- (item (name ?item-name) (frozen yes) (size medium))
 ?current-bag-fact <- (current-bag (name ?bag-name) (item-count ?item-count))
 =>
-;;(retract ?item-fact)
 (assert (in-freezer-bag (item-name ?item-name))))
-;;(modify ?current-bag-fact (item-count (+ ?item-count 1)) (item-size large)))
 
 
 (defrule B8
@@ -187,7 +185,6 @@ then (assert (item (name pepsi) (container-type bottle) (size large)))))
 (assert (step bag-small-items)))
 
 
-;;; STILL NEEDS WORK TO CHECK IF CURRENT BAG CONTAINS NO LARGE/MEDIUM ITEMS
 ;;; if 	step is bag-small-items
 ;;; 		a small item is to be bagged
 ;;;			the current bag contains no large items
@@ -198,7 +195,6 @@ then (assert (item (name pepsi) (container-type bottle) (size large)))))
 (defrule B11
 (step bag-small-items)
 ?item-fact <- (item (name ?item-name) (size small))
-;;;?current-bag-fact <- (current-bag (name ?bag-name) (item-size ?item-size&: (not ?item-size large)) (item-count ?item-count&:
 ?current-bag-fact <- (current-bag (name ?bag-name) (item-count ?item-count) (item-size ?item-size))
 (test (or (= ?item-count 0) (and (eq ?item-size small) (< ?item-count 18))))
 =>
